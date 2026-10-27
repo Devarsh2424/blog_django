@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+  
+    <div class="container">
+      <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+          {% for category in categories %}
+          <a class="nav-item nav-link link-body-emphasis active" href="#">{{ category.category_name }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+    </div>
+    <main class="container">
+  {% for post in featured_posts %}
+    {% if forloop.first %}
+    <div
+      class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+      style="background-image: url('{{ post.featured_image.url }}'); background-blend-mode: overlay; background-size: cover; background-position: center;"
+    >
+      <div class="col-lg-6 px-0">
+        <h1 class="display-4 fst-italic">{{ post.title }}</h1>
+        <p class="lead my-3">{{ post.short_description |truncatewords:30 }}</p>
+        <p class="lead mb-0">
+          <a href="#" class="text-body-emphasis fw-bold">Continue reading...</a>
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  <div class="row g-4">
+    <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Category - {{ category }}</h3>
+    {% if posts %}  
+    {% for post in posts %}
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            {% comment %} <strong class="d-inline-block mb-2 text-primary-emphasis">
+              {{ post.category.category_name }}
+            </strong> {% endcomment %}
+            <h3 class="mb-0">{{ post.title }}</h3>
+            <div class="mb-1 text-body-secondary">
+              {{ post.created_at|timesince }} ago
+            </div>
+            <p class="card-text mb-auto">
+              {{ post.short_description |truncatewords:20 }}
+            </p>
+            <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
+              Continue reading
+              <svg class="bi" aria-hidden="true">
+                <use xlink:href="#chevron-right"></use>
+              </svg>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img
+              src="{{ post.featured_image.url }}"
+              alt="{{ post.title }}"
+              class="bd-placeholder-img"
+              height="250"
+              width="200"
+              style="object-fit: cover;"
+            />
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+            No posts available in this category.
+            </div>
+        </div>
+    {% endif %}
+
+      </div>
+    </main>
+
+{% endblock content %}
+
