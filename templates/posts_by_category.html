@@ -3,34 +3,8 @@
 
 
 {% block content %}
-  
-    <div class="container">
-      <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-          {% for category in categories %}
-          <a class="nav-item nav-link link-body-emphasis active" href="#">{{ category.category_name }}</a>
-          {% endfor %}
-        </nav>
-      </div>
-    </div>
-    <main class="container">
-  {% for post in featured_posts %}
-    {% if forloop.first %}
-    <div
-      class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
-      style="background-image: url('{{ post.featured_image.url }}'); background-blend-mode: overlay; background-size: cover; background-position: center;"
-    >
-      <div class="col-lg-6 px-0">
-        <h1 class="display-4 fst-italic">{{ post.title }}</h1>
-        <p class="lead my-3">{{ post.short_description |truncatewords:30 }}</p>
-        <p class="lead mb-0">
-          <a href="#" class="text-body-emphasis fw-bold">Continue reading...</a>
-        </p>
-      </div>
-    </div>
-    {% endif %}
-  {% endfor %}
 
+    <main class="container">
   <div class="row g-4">
     <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Category - {{ category }}</h3>
     {% if posts %}  
