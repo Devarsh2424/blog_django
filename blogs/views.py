@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Blog, Category
+from .models import Blog, Category 
 
 def posts_by_category(request, category_id):
     posts = Blog.objects.filter(status = 'Published', category = category_id)
@@ -14,3 +14,11 @@ def posts_by_category(request, category_id):
         'category': category,
     }
     return render(request, 'posts_by_category.html', context)
+
+
+def blogs(request, slug):
+    single_blog = get_object_or_404(Blog, slug=slug, status='Published')
+    context = {
+        'single_blog': single_blog
+    }
+    return render(request, 'blogs.html', context)
