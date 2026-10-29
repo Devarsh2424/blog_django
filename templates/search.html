@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <main class="container">
+  <div class="row g-4">
+    <h3 class="text-warning" style="letter-spacing: 2px;">Search Term - {{ keyword }}</h3>
+    {% if blogs %}  
+    {% for i in blogs %}
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            {% comment %} <strong class="d-inline-block mb-2 text-primary-emphasis">
+              {{ post.category.category_name }}
+            </strong> {% endcomment %}
+            <h3 class="mb-0"><a href="{% url 'blogs' i.slug %}">{{ i.title }}</a></h3>
+            <div class="mb-1 text-body-secondary">
+              {{ i.created_at|timesince }} ago
+            </div>
+            <p class="card-text mb-auto">
+              {{ i.short_description |truncatewords:20 }}
+            </p>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img
+              src="{{ i.featured_image.url }}"
+              alt="{{ i.title }}"
+              class="bd-placeholder-img"
+              height="250"
+              width="200"
+              style="object-fit: cover;"
+            />
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+            No posts available in this category.
+            </div>
+        </div>
+    {% endif %}
+
+      </div>
+    </main>
+
+{% endblock content %}
+
